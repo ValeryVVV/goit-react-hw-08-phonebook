@@ -1,23 +1,23 @@
-import ContactList from "./ContactLists/ContactLists";
-import Filter from "./Filter/Filter";
-
-import style from './App.module.css';
-import ContactForm from "./ContactForm/ContactForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getError, getIsLoading } from "redux/contacts/selectors";
-import { fetchContacts } from "redux/contacts/operations";
-import { AppBar } from "./AppBar/AppBar";
 import { Route, Routes } from "react-router-dom";
 import PhonebookContacts from "./PhonebookContacts/PhonebookContacts";
 import { Layout } from "./Layout";
 import Home from "./HomePage/HomePage";
 import { RegisterForm } from "./RegisterForm/RegisterForm";
 import { LoginForm } from "./LoginForm/LoginForm";
+import { refreshUser } from "redux/auth/auth-operations";
+import PrivateRoute from "./PrivateRoute";
 
 export default function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(refreshUser());
+    }, [dispatch]);
+
 
     return (
+        <>
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
@@ -26,6 +26,9 @@ export default function App() {
                 <Route path="/contacts" element={<PhonebookContacts />} />
             </Route>
         </Routes>
+
+
+        </>
     )
 
 };
