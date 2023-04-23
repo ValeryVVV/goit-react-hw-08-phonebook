@@ -7,6 +7,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  successLoggedOutMessage: false,
 };
 
 const authSlice = createSlice({
@@ -22,11 +23,13 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      state.successLoggedOutMessage = true;
     },
     [logOut.fulfilled](state) {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
+      state.successLoggedOutMessage = true;
     },
     [refreshUser.fulfilled](state, action) {
       state.user = action.payload;

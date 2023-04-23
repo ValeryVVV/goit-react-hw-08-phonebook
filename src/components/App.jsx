@@ -7,7 +7,8 @@ import Home from "./HomePage/HomePage";
 import { RegisterForm } from "./RegisterForm/RegisterForm";
 import { LoginForm } from "./LoginForm/LoginForm";
 import { refreshUser } from "redux/auth/auth-operations";
-import PrivateRoute from "./PrivateRoute";
+import { PrivateRoute } from "./PrivateRoute";
+import { RestrictedRoute } from "./RestrictedRoute";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -21,9 +22,27 @@ export default function App() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="/register" element={<RegisterForm />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/contacts" element={<PhonebookContacts />} />
+
+                <Route
+                    path="/register"
+                    element={
+                        <RestrictedRoute redirectTo="/contacts" component={<RegisterForm />} />
+                    }
+                />
+
+                <Route
+                    path="/login"
+                    element={
+                        <RestrictedRoute redirectTo="/contacts" component={<LoginForm />} />
+                    }
+                />
+
+                <Route
+                    path="/contacts"
+                    element={
+                        <PrivateRoute redirectTo="/login" component={<PhonebookContacts />} />
+                    }
+                />
             </Route>
         </Routes>
 

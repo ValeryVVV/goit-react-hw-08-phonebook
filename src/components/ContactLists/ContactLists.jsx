@@ -1,10 +1,30 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import style from './ContactLists.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { getContacts, getFilter } from "redux/contacts/selectors";
 import { deleteContact } from "redux/contacts/operations";
+
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Button } from "@mui/material";
+import { styled } from '@mui/system';
+
+export const StyledButton = styled(Button)({
+    width: '100px',
+    color: 'black',
+    border: '1px solid black',
+});
+
+export const ContainerList = styled(Box)({
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    gap: '150px'
+});
 
 
 const ContactList = () => {
@@ -21,20 +41,33 @@ const ContactList = () => {
     
       const visibleContacts = getVisibleContacts();
 
-    return(
 
+
+    return(
         <>
-        <ul>
+        <div>
         {visibleContacts.map(({ id, name, number }) => (
-          <li key={id} className={style.item}>
-            <p className={style.contact}>
-              {name}...
-              {number}
-            </p>
-            <button className={style.btn} type="submit" onClick={() => dispatch(deleteContact(id))}>Delete</button>
-          </li>
+            <Accordion key={id}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <ContainerList>
+                        <Typography variant="h7">{name}</Typography>
+                        <Typography variant="h7">{number}</Typography>
+                    </ContainerList>
+                </AccordionSummary>
+                <AccordionDetails>
+                <Typography>
+                    Are you sure you want to delete the contact?
+                    <StyledButton sx={{ml: 2}} type="submit" onClick={() => dispatch(deleteContact(id))}>Delete</StyledButton>
+                </Typography>
+                    
+                </AccordionDetails>
+            </Accordion>
         ))}
-      </ul>
+      </div>
     </>
     )
 };

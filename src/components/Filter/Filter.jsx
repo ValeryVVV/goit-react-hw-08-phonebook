@@ -1,9 +1,9 @@
 import React from "react";
 
-import style from './Filter.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "redux/contacts/filtersSlice";
 import { getFilter } from "redux/contacts/selectors";
+import { Box, TextField } from "@mui/material";
 
 const Filter = () => {
     const dispatch = useDispatch();
@@ -16,17 +16,20 @@ const Filter = () => {
     
 
     return(
-        <div className={style.filter}>
-        <label className={style.labelFilter}>
-            Filter contacts by name <input className={style.filterInput} type='text' value={filter} onChange={handleChangeFilter} />
-        </label>
-    </div>
+        <Box>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="filter"
+                label="Filter contacts by name"
+                autoFocus
+                type="text"
+                name="filter"
+                value={filter}
+                onChange={handleChangeFilter}
+            />
+        </Box>
     )
 };
-
-// Filter.propTypes = {
-//     value: PropTypes.string.isRequired,
-//     onChange: PropTypes.func.isRequired,
-//   };
 
 export default Filter;

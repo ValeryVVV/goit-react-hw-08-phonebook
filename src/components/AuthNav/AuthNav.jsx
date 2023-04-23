@@ -1,15 +1,23 @@
 import { NavLink } from 'react-router-dom';
-import css from './AuthNav.module.css';
+import { styled } from '@mui/system';
+
+export const StyledLink = styled(NavLink)({
+    display: 'inline-block',
+    textDecoration: 'none',
+    padding: '12px',
+    fontWeight: '700',
+    color: '#ffff'
+});
 
 export const AuthNav = () => {
   return (
     <div>
-      <NavLink className={css.link} to="/register">
+      <StyledLink to="/register">
         Register
-      </NavLink>
-      <NavLink className={css.link} to="/login">
+      </StyledLink>
+      <StyledLink to="/login">
         Log In
-      </NavLink>
+      </StyledLink>
     </div>
   );
 };

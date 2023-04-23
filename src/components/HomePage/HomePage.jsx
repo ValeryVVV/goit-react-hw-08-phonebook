@@ -1,27 +1,30 @@
-const styles = {
-    container: {
-      minHeight: 'calc(100vh - 50px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    title: {
-      fontWeight: 500,
-      fontSize: 48,
-      textAlign: 'center',
-    },
-  };
+import { Button, Link, Typography } from "@mui/material";
+import { styled } from '@mui/system';
+import { useNavigate } from "react-router-dom";
+
+export const Container = styled('div')({
+    display: 'flex',
+    marginTop: '100px',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '20px'
+});
+
+export const StyledButton = styled(Button)({
+    width: '150px',
+    color: '#e69c14',
+    borderColor: '#e69c14'
+});
   
   export default function Home() {
+
+    const navigate = useNavigate();
     return (
-      <div style={styles.container}>
-        <h1 style={styles.title}>
-          Task manager welcome page{' '}
-          <span role="img" aria-label="Greeting icon">
-            💁‍♀️
-          </span>
-        </h1>
-      </div>
+      <Container>
+        <Typography variant="h3">Phonebook</Typography>
+        <StyledButton onClick={() => navigate("/register")} variant="outlined">Try it now!</StyledButton>
+      </Container>
     );
   }
   

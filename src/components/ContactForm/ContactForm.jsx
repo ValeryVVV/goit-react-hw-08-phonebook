@@ -4,7 +4,11 @@ import { addContact } from "redux/contacts/operations";
 import { getContacts } from "redux/contacts/selectors";
 import shortid from "shortid";
 
-import style from './ContactForm.module.css';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { Box, Button, CardActionArea, TextField } from '@mui/material';
+import Filter from "components/Filter/Filter";
 
 export default function ContactForm() {
     const [name, setName] = useState('');
@@ -51,7 +55,58 @@ export default function ContactForm() {
 
     return (
         <>
-        <form className={style.form} onSubmit={handleSubmit}>
+        <Card sx={{ maxWidth: 345, border: '1px solid black' }}>
+            <CardActionArea>
+                <CardContent>
+                <Typography gutterBottom variant="h5" component="div" sx={{textAlign: 'center'}}>
+                    Phonebook
+                </Typography>
+                <Filter />
+
+            <Box component="form" autoComplete="off" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <TextField
+                    margin="normal"
+                    fullWidth
+                    id="name"
+                    label="Name"
+                    autoComplete="name"
+                    autoFocus
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={handleChange}
+                    pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                    required
+                />
+                <TextField
+                    margin="normal"
+                    fullWidth
+                    label="Number"
+                    id="number"
+                    autoComplete="current-password"
+                    type="tel"
+                    name="number"
+                    value={number}
+                    onChange={handleChange}
+                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                    required
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    Add contact
+                </Button>
+            </Box>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+
+        {/* <form className={style.form} onSubmit={handleSubmit}>
             <label>
                 Name
                 <input
@@ -79,10 +134,9 @@ export default function ContactForm() {
                 />
                 </label>
             <button type="submit">Add contact</button>
-        </form>
+        </form> */}
         </>
 
     )
 
 };
-

@@ -2,11 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchContacts } from "redux/contacts/operations";
 import { getError, getIsLoading } from "redux/contacts/selectors";
 
-import style from '../App.module.css';
 import ContactForm from "components/ContactForm/ContactForm";
-import Filter from "components/Filter/Filter";
 import ContactList from "components/ContactLists/ContactLists";
 import { useEffect } from "react";
+import { styled } from '@mui/system';
+import { Box, Typography } from "@mui/material";
+
+export const Container = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '30px',
+    flexDirection: 'column',
+    alignItems: 'center'
+});
 
 export default function PhonebookContacts() {
     const dispatch = useDispatch();
@@ -18,14 +26,12 @@ export default function PhonebookContacts() {
       }, [dispatch]);
 
     return (
-        <div className={style.container}>
-            <h1>Phonebook</h1>
+        <Container>
             <ContactForm />
             {isLoading && !error && <b>Request in progress...</b>}
-            <h2>Contacts</h2>
-            <Filter />
+            <Typography variant="h5" sx={{mt: 5}}>Contacts</Typography>
             <ContactList />
-        </div>
+        </Container>
     )
 
 };

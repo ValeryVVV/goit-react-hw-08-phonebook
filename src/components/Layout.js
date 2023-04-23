@@ -1,14 +1,20 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import { AppBar } from './AppBar/AppBar';
+import { AppBarContainer } from './AppBar/AppBar';
+import { Box } from '@mui/material';
+import { styled } from '@mui/system';
+
+export const Container = styled(Box)({
+  margin: '0 auto',
+});
 
 export const Layout = () => {
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 16px' }}>
-      <AppBar />
+    <Container>
+      <AppBarContainer />
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
-    </div>
+    </Container>
   );
 };
